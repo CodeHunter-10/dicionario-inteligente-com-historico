@@ -1,0 +1,226 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* MAIN */
+main {
+    padding: 30px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* CARD */
+section {
+    width: 90%;
+    max-width: 600px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* FIELDSET */
+fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+legend {
+    padding: 0 10px;
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #cbd5f5;
+    outline: none;
+    background: #f8fafc;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+input:focus {
+    border: 1px solid #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* RESULTADOS */
+#Verbete {
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* STATUS */
+#status {
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+/* ERRO */
+#error {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+/* PALAVRA */
+#termo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #16a34a;
+}
+
+/* DEFINIÇÕES */
+#significados p {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 5px;
+    border-left: 4px solid #2563eb;
+    transition: 0.2s;
+}
+
+#significados p:hover {
+    transform: translateX(4px);
+    background: #eef2ff;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+}
+#historico {
+    right: 0;
+    top: 0;
+    width: 30%;
+    z-index: 2;
+    display: none;
+    position: fixed;
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 30px 20px;
+    height: 100vh;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+#historicoDePesquisa {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 10px;
+    margin-top: 15px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* Card igual ao padrão do site */
+.lista-historico {
+display: flex;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    transition: 0.2s;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* Hover elegante */
+.lista-historico:hover {
+    background: #eef2ff;
+    transform: translateX(3px);
+}
+
+/* Termo */
+.termo {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* Data */
+.data {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+.btnLixeira {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+    transition: 0.2s;
+}
+
+.btnLixeira:hover {
+    transform: scale(1.1);
+  } 
+  #menu{
+    user-select: none;
+    margin-top: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    box-sizing: 1px;
+    z-index: 2;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    height:5vh;
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #menu:hover{
+    background-color: #e8e7e7;
+  }

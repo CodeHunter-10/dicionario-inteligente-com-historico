@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="Pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Css/style.css">
+    <title>Buscador Inteligente + Historico de Busca</title>
+</head>
+<body>
+    <header> 
+        <h1>Smart-Search Dicionario</h1>
+    </header>
+        <section id="menu">≡</section>
+    <main>
+        <section>
+            <form>
+                    <fieldset>
+                        <legend>Faça Aqui a Sua Busca</legend>
+                        <p>
+                        <label for="size_1">Campo De Pesquisa:</label>
+                        <input type="text" name="Buscador" id="Buscador_Inteligente" placeholder="Digite aqui ... ">
+                        </p>
+                    </fieldset>
+                </form>
+        </section>
+        <section id="Verbete">
+
+            <p id="status">O resultado vai aparecer aqui</p>
+            <p id="error"></p>
+
+            <p id="termo"></p>
+            <div id="significados"></div>
+
+        </section>
+        <section id="historico">
+            <h2>Historico de Pesquisa</h2>
+            <p id="paragradoDoHistorico">Seu Historico de pesquisa aparecera aqui</p>
+            <div id="historicoDePesquisa"></div>
+        </section>
+        
+    </main>
+    <footer>
+
+    </footer>   
+    <script type="module" src="Js/Funcoes.js"></script> 
+    <script type="module" src="Js/Dom.js"></script>
+    <script type="module" src="Js/controller.js"></script>
+    <script type="module" src="Js/Fake-API.js"></script>
+</body>
+</html>
