@@ -1,4 +1,3 @@
-//import { createElement } from "react"
 
 const dom =  {
     formulario: document.querySelector("form"),
@@ -55,10 +54,6 @@ function CriarElemento(elemento, classe, texto , identificador){
     return novoElemento
 }
 
-
-function DeletarItem(){
-
-}
 function statusCarregando(dom){
     dom.termo.textContent = ""
     dom.significados.innerHTML = "";
@@ -89,7 +84,6 @@ dom.menu.addEventListener("click",(e)=>{
 
 document.addEventListener("click", (e) => {
 
-    // Verifica se o clique foi FORA do historico E FORA do botão do menu
     if (!dom.historico.contains(e.target) && !dom.menu.contains(e.target)) {
         dom.historico.style.display = 'none';
     }
