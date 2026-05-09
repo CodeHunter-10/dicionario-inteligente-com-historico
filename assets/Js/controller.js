@@ -4,7 +4,7 @@
 
     let SearchID = 0;
     const campoDePesquisa = dom.input;
-    let historico = [];
+    let historicoEstado = [];
 
     let debounced = functions.debounce(executarBusca,800)
 
@@ -18,18 +18,19 @@
         iniciarBusca(campoDePesquisa.value);
     })
 
-    dom.historicoDePesquisa.addEventListener("click",(e)=>{
-        const pesquisa = e.target.closest("ul");
-        if (!pesquisa) {return;}
+    dom.listaHistoricoDOM.addEventListener("click",(e)=>{
+        const termo = e.target.closest("li");
+        if (!termo) {return;}
 
         const botao = e.target.closest('button');
             if (botao){
+                functions.DeletaritemDoHistorico(termo,historicoEstado)
                 e.stopPropagation();
-                pesquisa.remove();
+                termo.remove();
                 return;
             }
         
-            const palavra = dom.obterTermo(pesquisa);
+            const palavra = dom.obterTermo(termo);
             if (!palavra){return;}
 
         iniciarBusca(palavra);
@@ -49,14 +50,14 @@
     
         for(let i = 0 ; i< descricao.length; i++){
             let novoP = document.createElement("p");
-            novoP.id = `definicao_${i}`;
             novoP.textContent = resposta.significado[i];
             dom.significados.appendChild(novoP);
         }
-        
-        historico.push(functions.salvarBusca(resposta?.palavra));
-        let novaLista = dom.RenderizarHistorico(historico);
-        dom.historicoDePesquisa.prepend(novaLista);
+        const novoItem = functions.salvarBusca(resposta?.palavra)
+        historicoEstado.push(novoItem);
+
+        let novaLista = dom.RenderizarHistorico(novoItem);
+        dom.listaHistoricoDOM.prepend(novaLista);
     }
 
         async function executarBusca(valor){
@@ -77,3 +78,8 @@
         try{renderizarRespostaAPI(resposta);}
         catch(e){console.error(e.message);}
         }
+
+        dom.botaoLimparHistorico.addEventListener("click",()=>{
+            historicoEstado = [];
+            dom.listaHistoricoDOM.innerHTML = "";
+        })

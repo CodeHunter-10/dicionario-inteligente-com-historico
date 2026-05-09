@@ -145,7 +145,7 @@ footer {
     gap: 10px;
     overflow: hidden;
 }
-#historicoDePesquisa {
+#listaHistoricoDOM {
     display: flex;
     flex-direction: column;
     flex: 1;

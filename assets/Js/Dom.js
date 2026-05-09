@@ -7,10 +7,11 @@ const dom =  {
     significados: document.querySelector("#significados"),
     erro: document.querySelector("#error"),
     menu : document.querySelector("#menu"),
-    historico:document.querySelector('#historico'),
-    historicoDePesquisa: document.querySelector("#historicoDePesquisa"),
+    AbaHistoricoDOM:document.querySelector('#historico'),
+    listaHistoricoDOM: document.querySelector("#listaHistoricoDOM"),
     verbete:document.querySelector("#Verbete"),
     historicoParagrafo:document.querySelector("#paragradoDoHistorico"),
+    botaoLimparHistorico:document.querySelector("#limparHistorico"),
     obterTermo:obterTermo,
     RenderizarHistorico: RenderizarHistorico,
     statusCarregando:statusCarregando,
@@ -20,23 +21,21 @@ export default dom
 
 
 function RenderizarHistorico(input){
-    let indice = input.length;
-    let arrayAtual = input[indice - 1];
 
     // UL principal
-    const ul = CriarElemento("ul", "lista-historico", null, `item${indice}`);
-
+    const ul = CriarElemento("li", "lista-historico");
+    ul.setAttribute("data-id", input.id)
     // Div que agrupa termo + data
     const divInfo = CriarElemento("div");
 
-    const termo = CriarElemento("p","termo",`termo: ${arrayAtual.termo}`,`termo-${indice}`);
-    const data = CriarElemento("p","data",`data: ${arrayAtual.data}`,`data-${indice}`);
+    const termo = CriarElemento("p","termo",`termo: ${input.termo}`);
+    const data = CriarElemento("p","data",`data: ${input.data}`);
 
     divInfo.appendChild(termo);
     divInfo.appendChild(data);
 
     // Div da lixeira
-    const divLixeira = CriarElemento("button","btnLixeira","🗑️" ,`lixeira${indice}`,"indice");
+    const divLixeira = CriarElemento("button","btnLixeira","🗑️");
 
     // Montagem final
     ul.appendChild(divInfo);
@@ -62,15 +61,16 @@ function statusCarregando(dom){
 }
 
 function atualizarEstadoDoHistorico(){
-    const historicoVazio = dom.historicoDePesquisa.children.length === 0;
+    const historicoVazio = dom.listaHistoricoDOM.children.length === 0;
     dom.historicoParagrafo.style.display = historicoVazio ? "block" : "none";
+    dom.botaoLimparHistorico.style.display= historicoVazio ?"none":"block"
 }
 
 const observadorDoHistorico = new MutationObserver(() => {
     atualizarEstadoDoHistorico();
 });
 
-observadorDoHistorico.observe(dom.historicoDePesquisa, {
+observadorDoHistorico.observe(dom.listaHistoricoDOM, {
     childList: true
 });
 
@@ -79,13 +79,13 @@ atualizarEstadoDoHistorico();
 
 dom.menu.addEventListener("click",(e)=>{
     e.stopPropagation();
-    dom.historico.style.display = dom.historico.style.display === 'flex' ? 'none' : 'flex';
+    dom.AbaHistoricoDOM.style.display = dom.AbaHistoricoDOM.style.display === 'flex' ? 'none' : 'flex';
 }); 
 
 document.addEventListener("click", (e) => {
 
-    if (!dom.historico.contains(e.target) && !dom.menu.contains(e.target)) {
-        dom.historico.style.display = 'none';
+    if (!dom.AbaHistoricoDOM.contains(e.target) && !dom.menu.contains(e.target)) {
+        dom.AbaHistoricoDOM.style.display = 'none';
     }
 });
 

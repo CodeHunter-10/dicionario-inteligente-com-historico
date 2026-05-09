@@ -10,14 +10,14 @@
     <header> 
         <h1>Smart-Search Dicionario</h1>
     </header>
-        <section id="menu">≡</section>
+        <button id="menu">≡</button>
     <main>
         <section>
             <form>
                     <fieldset>
                         <legend>Faça Aqui a Sua Busca</legend>
                         <p>
-                        <label for="size_1">Campo De Pesquisa:</label>
+                        <label>Campo De Pesquisa:</label>
                         <input type="text" name="Buscador" id="Buscador_Inteligente" placeholder="Digite aqui ... ">
                         </p>
                     </fieldset>
@@ -35,7 +35,8 @@
         <section id="historico">
             <h2>Historico de Pesquisa</h2>
             <p id="paragradoDoHistorico">Seu Historico de pesquisa aparecera aqui</p>
-            <div id="historicoDePesquisa"></div>
+            <ul id="listaHistoricoDOM"></ul>
+            <button id="limparHistorico">Limpar Historico</button>
         </section>
         
     </main>
