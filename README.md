@@ -83,9 +83,9 @@ Manipular histórico
 
 ## ✅ Tarefas:
 
-* [] Remover item do histórico
+* [x] Remover item do histórico
 * [x] Usar event delegation
-* [ ] Criar botão "limpar histórico"
+* [x] Criar botão "limpar histórico"
 * [x] Atualizar renderização
 
 ## 🧠 Conceitos usados:

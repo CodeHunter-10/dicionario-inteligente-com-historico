@@ -85,6 +85,7 @@ input:focus {
 
 /* RESULTADOS */
 #Verbete {
+    display: flex;
     flex-direction: column;
     gap: 10px;
 }
@@ -204,11 +205,13 @@ display: flex;
     transform: scale(1.1);
   } 
   #menu{
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1% 2%;
     user-select: none;
     margin-top: 10px;
     margin-right: 10px;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-    box-sizing: 1px;
     z-index: 2;
     position: fixed;
     top: 0px;
@@ -216,7 +219,9 @@ display: flex;
     font-size: 1.5rem;
     cursor: pointer;
     height:5vh;
-    width: 5vw;
+    min-height: 5vh;
+    width: 5vh;
+    min-width: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;

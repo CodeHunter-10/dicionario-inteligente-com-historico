@@ -13,7 +13,8 @@ export default async function buscarNoDicionario(input){
         return parseXml(xml);
 }
     catch(err){
-        console.error(`Erro: ${err.message}`);
+        console.error(`Erro: ${err.message}`)
+        return null;
     }
 }
 function parseXml(xml) {

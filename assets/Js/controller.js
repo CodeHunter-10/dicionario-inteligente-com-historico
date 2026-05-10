@@ -45,12 +45,16 @@
         dom.termo.textContent = resposta?.palavra;
         let descricao = resposta?.significado;
 
-        if(!descricao) {return}
+        if(!Array.isArray(descricao) || descricao.length === 0) {
+            dom.status.textContent = "";
+            dom.erro.textContent = "Nenhum significado encontrado para essa palavra.";
+            return;
+        }
         dom.status.textContent = "";
     
         for(let i = 0 ; i< descricao.length; i++){
             let novoP = document.createElement("p");
-            novoP.textContent = resposta.significado[i];
+            novoP.textContent = descricao[i];
             dom.significados.appendChild(novoP);
         }
         const novoItem = functions.salvarBusca(resposta?.palavra)
@@ -69,6 +73,11 @@
         if(idDaRequisiçaoAtual!==SearchID) {
             dom.status.textContent = "";
             return}
+        if(resposta === null){
+            dom.status.textContent = "";
+            dom.erro.textContent = "houve um problema ao buscar tente novamente mais tarde.";
+            return
+        }
         if(resposta === false) {
             dom.status.textContent = "";
             dom.erro.textContent = "Palavra Nao Encontrada no Dicionario";
@@ -76,10 +85,16 @@
         }
         campoDePesquisa.value = "";
         try{renderizarRespostaAPI(resposta);}
-        catch(e){console.error(e.message);}
+        catch(e){
+            console.error(e.message);
+            dom.status.textContent = "";
+            dom.erro.textContent = "Nao foi possivel renderizar o resultado.";
+        }
         }
 
-        dom.botaoLimparHistorico.addEventListener("click",()=>{
+        dom.botaoLimparHistorico.addEventListener("click",limparHistorico)
+
+        function limparHistorico(){
             historicoEstado = [];
             dom.listaHistoricoDOM.innerHTML = "";
-        })
+        }
