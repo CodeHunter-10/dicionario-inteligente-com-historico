@@ -98,3 +98,62 @@
             historicoEstado = [];
             dom.listaHistoricoDOM.innerHTML = "";
         }
+
+        dom.PesquisarNoHistorico.addEventListener("input", async () => {
+            let resultado = pesquisarHistorico();
+            let resposta = criarRespostaParaEnviarAoDOM(resultado)
+            console.log(resposta)
+            //preciso manipular o resultado aqui !  
+            // significa que preciso do resultado qual e a melhor funçao para colocar aqui e porque ?
+        });
+
+const pesquisarHistorico = () => { //esta funcionando perfeitamente
+    const valor = dom.obterValorDoDOM(dom.PesquisarNoHistorico);
+
+    if(historicoEstado.length<1){
+        return "Não existe nenhuma palavra no historico para ser Pesquisada";}
+
+    if(valor&&historicoEstado.length>0){
+        return PesquisarNoArray(historicoEstado,"termo",valor)
+    }
+}
+
+function PesquisarNoArray(arrayParaPesquisar,termo, pesquisa){
+        let pesquisaFormatada = pesquisa
+                                .toLowerCase()
+                                .trim();
+        let arrayFiltrado = arrayParaPesquisar.filter(
+            array=> {
+                let ObjetoFiltrado = 
+                                array[termo]
+                                        .toLowerCase()
+                                        .trim()
+                                        .includes(pesquisaFormatada)
+                                    return ObjetoFiltrado
+                                })
+    return arrayFiltrado
+}
+
+function criarRespostaParaEnviarAoDOM(resultado){
+    if (!resultado) {
+                    //console.log('nao existe nenhuma palavra no campo de pesquisa')
+                    let valor = 'nao existe nenhuma palavra no campo de pesquisa'
+                    return valor
+                }
+                if (typeof resultado == "string"){
+                    //console.log(resultado)
+                    let valor = resultado ;
+                    return valor
+                    // envia um erro para a tela dizendo que : nao existe historico
+                }
+                else if(resultado.length>0){
+                    //console.log(resultado)
+                    let valor = resultado ;
+                    return valor
+                }
+                else if(resultado.length<1){
+                    //console.log("não existe nenhuma palavra no historico que contem essa pesquisa!")
+                    let valor = "não existe nenhuma palavra no historico que contem essa pesquisa!" ;
+                    return valor
+                }
+}

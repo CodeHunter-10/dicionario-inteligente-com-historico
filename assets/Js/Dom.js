@@ -1,21 +1,28 @@
 
+function ObterITEM(ObjetoDOM){
+    return document.querySelector(ObjetoDOM)
+}
 const dom =  {
-    formulario: document.querySelector("form"),
-    input: document.querySelector("#Buscador_Inteligente"),
-    status: document.querySelector("#status"),
-    termo: document.querySelector("#termo"),
-    significados: document.querySelector("#significados"),
-    erro: document.querySelector("#error"),
-    menu : document.querySelector("#menu"),
-    AbaHistoricoDOM:document.querySelector('#historico'),
-    listaHistoricoDOM: document.querySelector("#listaHistoricoDOM"),
-    verbete:document.querySelector("#Verbete"),
-    historicoParagrafo:document.querySelector("#paragradoDoHistorico"),
-    botaoLimparHistorico:document.querySelector("#limparHistorico"),
+    formulario: ObterITEM("form"),
+    input: ObterITEM("#Buscador_Inteligente"),
+    status: ObterITEM("#status"),
+    termo: ObterITEM("#termo"),
+    significados: ObterITEM("#significados"),
+    erro: ObterITEM("#error"),
+    menu : ObterITEM("#menu"),
+    AbaHistoricoDOM:ObterITEM('#historico'),
+    listaHistoricoDOM: ObterITEM("#listaHistoricoDOM"),
+    listaFiltradaHistorico:ObterITEM("#listaFiltradaHistoricoDOM"),
+    verbete:ObterITEM("#Verbete"),
+    historicoParagrafo:ObterITEM("#paragradoDoHistorico"),
+    botaoLimparHistorico:ObterITEM("#limparHistorico"),
+    PesquisarNoHistorico:ObterITEM("#PesquisarNoHistorico"),
     obterTermo:obterTermo,
     RenderizarHistorico: RenderizarHistorico,
     statusCarregando:statusCarregando,
-    atualizarEstadoDoHistorico: atualizarEstadoDoHistorico
+    atualizarEstadoDoHistorico: atualizarEstadoDoHistorico,
+    obterValorDoDOM:obterValorDoDOM,
+    AlternarListaDeHistoricoExibido:AlternarListaDeHistoricoExibido,
     }
 export default dom  
 
@@ -80,6 +87,7 @@ atualizarEstadoDoHistorico();
 dom.menu.addEventListener("click",(e)=>{
     e.stopPropagation();
     dom.AbaHistoricoDOM.style.display = dom.AbaHistoricoDOM.style.display === 'flex' ? 'none' : 'flex';
+    AlternarListaDeHistoricoExibido(dom)
 }); 
 
 document.addEventListener("click", (e) => {
@@ -91,11 +99,22 @@ document.addEventListener("click", (e) => {
 
     function obterTermo(item){
             if (!item) {return null;}
-
             let pesquisa = item.querySelector(".termo");
             if (!pesquisa) {return null;}
-
             pesquisa = pesquisa.textContent;
             let palavra = pesquisa.replace("termo: ", "").toLowerCase();
             return palavra;
     }
+
+    function obterValorDoDOM(input){
+        if(!input) {return}
+        return input.value
+    }
+
+    function AlternarListaDeHistoricoExibido(dom){
+        console.log(dom.listaHistoricoDOM.style)
+        console.log(dom.listaFiltradaHistorico.style)
+
+    }
+
+AlternarListaDeHistoricoExibido(dom)

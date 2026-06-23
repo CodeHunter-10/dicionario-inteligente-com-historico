@@ -1,15 +1,11 @@
 export default async function buscarNoDicionario(input){
     try{
         input = input.toLowerCase();
-
         const resposta = await fetch(`https://api.dicionario-aberto.net/word/${input}`);
-
         if(!resposta.ok){throw new Error("Erro na Requisiçao")};
         const dados = await resposta.json();
-
         if(!dados[0]){return false};
         const xml =  dados[0].xml;
-
         return parseXml(xml);
 }
     catch(err){
