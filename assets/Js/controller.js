@@ -59,8 +59,10 @@
         }
         const novoItem = functions.salvarBusca(resposta?.palavra)
         historicoEstado.push(novoItem);
+        console.log(novoItem)
 
         let novaLista = dom.RenderizarHistorico(novoItem);
+        console.log(novaLista)
         dom.listaHistoricoDOM.prepend(novaLista);
     }
 
@@ -99,10 +101,30 @@
             dom.listaHistoricoDOM.innerHTML = "";
         }
 
-        dom.PesquisarNoHistorico.addEventListener("input", async () => {
+        //refatorar depois de criar 
+        dom.PesquisarNoHistorico.addEventListener("input", async (e) => {
             let resultado = pesquisarHistorico();
             let resposta = criarRespostaParaEnviarAoDOM(resultado)
             console.log(resposta)
+
+            let quantidadeDeLetrasNoInputDoHistorico = e.target.value.length
+
+            if(quantidadeDeLetrasNoInputDoHistorico>0){
+
+                dom.listaHistoricoDOM.style.display = "none"
+                dom.listaFiltradaHistorico.style.display = "flex"
+
+                function RenderizarHistoricoFiltrado(resposta){
+                    dom.listaFiltradaHistorico = ""
+                }
+            }
+            else if (quantidadeDeLetrasNoInputDoHistorico<=0){
+
+                dom.listaHistoricoDOM.style.display = "flex"
+                dom.listaFiltradaHistorico.style.display = "flex"
+
+            }
+            //(resposta)=>{}()
             //preciso manipular o resultado aqui !  
             // significa que preciso do resultado qual e a melhor funçao para colocar aqui e porque ?
         });

@@ -22,7 +22,7 @@ const dom =  {
     statusCarregando:statusCarregando,
     atualizarEstadoDoHistorico: atualizarEstadoDoHistorico,
     obterValorDoDOM:obterValorDoDOM,
-    AlternarListaDeHistoricoExibido:AlternarListaDeHistoricoExibido,
+   // AlternarListaDeHistoricoExibido:AlternarListaDeHistoricoExibido,
     }
 export default dom  
 
@@ -87,7 +87,7 @@ atualizarEstadoDoHistorico();
 dom.menu.addEventListener("click",(e)=>{
     e.stopPropagation();
     dom.AbaHistoricoDOM.style.display = dom.AbaHistoricoDOM.style.display === 'flex' ? 'none' : 'flex';
-    AlternarListaDeHistoricoExibido(dom)
+    //AlternarListaDeHistoricoExibido(dom)
 }); 
 
 document.addEventListener("click", (e) => {
@@ -111,10 +111,10 @@ document.addEventListener("click", (e) => {
         return input.value
     }
 
-    function AlternarListaDeHistoricoExibido(dom){
-        console.log(dom.listaHistoricoDOM.style)
-        console.log(dom.listaFiltradaHistorico.style)
+    //function AlternarListaDeHistoricoExibido(dom){
+      //  console.log(dom.listaHistoricoDOM.style)
+        //console.log(dom.listaFiltradaHistorico.style)
 
-    }
+    //}
 
-AlternarListaDeHistoricoExibido(dom)
+//AlternarListaDeHistoricoExibido(dom)
