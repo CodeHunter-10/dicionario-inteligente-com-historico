@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "language": "en,pt",
+    "dictionaries": [
+        "javascript",
+        "typescript"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "dist",
+        "build"
+    ],
+    "words": [],
+    "ignoreWords": []
+}

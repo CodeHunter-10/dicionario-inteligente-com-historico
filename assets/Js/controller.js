@@ -113,15 +113,13 @@
 
                 dom.listaHistoricoDOM.style.display = "none"
                 dom.listaFiltradaHistorico.style.display = "flex"
+                renderizarHistoricoFiltrado(resposta)
 
-                function RenderizarHistoricoFiltrado(resposta){
-                    dom.listaFiltradaHistorico = ""
-                }
             }
             else if (quantidadeDeLetrasNoInputDoHistorico<=0){
 
                 dom.listaHistoricoDOM.style.display = "flex"
-                dom.listaFiltradaHistorico.style.display = "flex"
+                dom.listaFiltradaHistorico.style.display = "none"
 
             }
             //(resposta)=>{}()
@@ -135,7 +133,7 @@ const pesquisarHistorico = () => { //esta funcionando perfeitamente
     if(historicoEstado.length<1){
         return "Não existe nenhuma palavra no historico para ser Pesquisada";}
 
-    if(valor&&historicoEstado.length>0){
+    if(valor?.trim() &&historicoEstado.length>0){
         return PesquisarNoArray(historicoEstado,"termo",valor)
     }
 }
@@ -156,26 +154,47 @@ function PesquisarNoArray(arrayParaPesquisar,termo, pesquisa){
     return arrayFiltrado
 }
 
-function criarRespostaParaEnviarAoDOM(resultado){
-    if (!resultado) {
-                    //console.log('nao existe nenhuma palavra no campo de pesquisa')
-                    let valor = 'nao existe nenhuma palavra no campo de pesquisa'
-                    return valor
-                }
-                if (typeof resultado == "string"){
-                    //console.log(resultado)
-                    let valor = resultado ;
-                    return valor
-                    // envia um erro para a tela dizendo que : nao existe historico
-                }
-                else if(resultado.length>0){
-                    //console.log(resultado)
-                    let valor = resultado ;
-                    return valor
-                }
-                else if(resultado.length<1){
-                    //console.log("não existe nenhuma palavra no historico que contem essa pesquisa!")
-                    let valor = "não existe nenhuma palavra no historico que contem essa pesquisa!" ;
-                    return valor
-                }
+function criarRespostaParaEnviarAoDOM(resultado) {
+    // 1. resposta veio vazia
+    if (resultado == null) {
+        return 'não existe nenhuma palavra no campo de pesquisa';
+    }
+
+    // 2. erro já formatado
+    if (typeof resultado === "string") {
+        return resultado;
+    }
+
+    // 3. garantir que é um array
+    if (!Array.isArray(resultado)) {
+        return 'formato de resposta inválido';
+    }
+
+    // 4. array vazio
+    if (resultado.length === 0) {
+        return "não existe nenhuma palavra no histórico que contém essa pesquisa!";
+    }
+
+    // 5. array com dados
+    return resultado;
+}
+
+function renderizarHistoricoFiltrado(resposta) {
+    dom.listaFiltradaHistorico.innerHTML = ""
+
+    if (typeof resposta === "string") {
+        let novoItem = document.createElement("li");
+        novoItem.textContent = resposta;
+        dom.listaFiltradaHistorico.appendChild(novoItem);
+        return
+    } 
+    else{
+    for (let i = 0; i < resposta.length; i++) {
+
+        let novoItem = dom.RenderizarHistorico(resposta[i]);
+        dom.listaFiltradaHistorico.appendChild(novoItem);
+        console.log(novoItem)
+        console.log(historicoEstado)
+        }
+    }
 }

@@ -104,14 +104,13 @@ Filtrar buscas anteriores
 
 ## ✅ Tarefas:
 
-* [ ] Criar input de filtro
-* [ ] Filtrar histórico com:
+* [x] Filtrar histórico com:
 
 ```js
 includes()
 ```
 
-* [ ] Renderizar resultado filtrado
+* [x] Renderizar resultado filtrado
 
 ## 🧠 Conceitos usados:
 

@@ -158,7 +158,7 @@ footer {
 }
 
 #listaFiltradaHistoricoDOM{
-    display: flex;
+    display: none;
     flex-direction: column;
     flex: 1;
     min-height: 0;
