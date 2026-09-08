@@ -23,18 +23,21 @@ function debounce(fn,delay){
 }
 
 function salvarBusca(input){
-    let historico = {
-        id: Date.now(),
-        termo:input,
-        data: new Date().toLocaleString("pt-BR")
-    }
+    let dataId = Date.now();
+        let historico = {
+            id: dataId,
+            termo:input,
+            data: new Date().toLocaleString("pt-BR")
+        }
+    localStorage.setItem(`Historico de Pesquisa Item:${dataId}` , JSON.stringify(historico))
     return historico
 }
 function DeletaritemDoHistorico(input,historico) { 
         const idParaRemover = input.getAttribute("data-id");
         const numeroID = historico.findIndex(item => item.id == idParaRemover);
     if(numeroID!==-1){
-        historico.splice(numeroID,1); 
+        historico.splice(numeroID,1);
+        localStorage.removeItem(`Historico de Pesquisa Item:${idParaRemover}`)
     }
     else {
         console.warn("ID não encontrado no array:", idParaRemover);

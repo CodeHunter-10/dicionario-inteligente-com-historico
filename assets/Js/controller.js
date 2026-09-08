@@ -4,7 +4,8 @@
 
     let SearchID = 0;
     const campoDePesquisa = dom.input;
-    let historicoEstado = [];
+    const historicoEstado = [];
+    ColetarHistoricoDoLocalStorage();
     
     let debounced = functions.debounce(executarBusca,800)
 
@@ -21,7 +22,6 @@ dom.formulario.addEventListener("submit",(e)=>{
 dom.listaHistoricoDePesquisa.addEventListener("click",(e)=>{
     const termo = e.target.closest("li");
     if (!termo) { return; }
-    console.log(historicoEstado)
     
 
     const botao = e.target.closest('button');
@@ -46,7 +46,6 @@ dom.listaFiltradaHistorico.addEventListener("click", (e) => {
     if (botao) {
             functions.DeletaritemDoHistorico(termo, historicoEstado)
             e.stopPropagation();
-            console.log(termo)
             let dataID = termo.getAttribute("data-id");
                 dom.listaHistoricoDePesquisa.querySelector(`li[data-id="${dataID}"]`).remove();
             termo.remove();
@@ -59,14 +58,10 @@ dom.listaFiltradaHistorico.addEventListener("click", (e) => {
 
         iniciarBusca(palavra);
     }
-
-        console.log(...historicoEstado)
 })
 
 
 dom.botaoLimparHistorico.addEventListener("click",limparHistorico)
-
-    //refatorar depois de criar
     
 dom.pesquisarNoHistorico.addEventListener("input", (e) => {
     let inputDoHistorico = e.target.value
@@ -98,7 +93,7 @@ function mostrarHistoricoFiltrado() {
 }
 
 
-function pesquisarNoHistorico() { //esta funcionando perfeitamente
+function pesquisarNoHistorico() {
     const valor = dom.pesquisarNoHistorico.value
 
     if (historicoEstado.length < 1) {
@@ -153,7 +148,7 @@ function criarRespostaParaEnviarAoDOM(resultado) {
 function renderizarHistoricoFiltrado(resposta) {
     mostrarHistoricoFiltrado();
 
-    if (typeof resposta === "string") {
+    if (typeof resposta === "string") { 
             let novoItem = document.createElement("li");
             novoItem.textContent = resposta;
             dom.listaFiltradaHistorico.appendChild(novoItem);
@@ -169,8 +164,9 @@ function renderizarHistoricoFiltrado(resposta) {
 }
 
 function limparHistorico() {
-    historicoEstado = [];
-    dom.limparInterfaceDoHistorico();
+    historicoEstado.length = 0;
+    localStorage.clear();
+    dom.limparInterfaceDoHistorico(); 
 }
 
 function iniciarBusca(valor) {
@@ -198,15 +194,10 @@ function renderizarRespostaAPI(resposta) {
     }
     const novoItem = functions.salvarBusca(resposta?.palavra)
     historicoEstado.push(novoItem);
-    console.log(novoItem)
     if (dom.pesquisarNoHistorico.value.trim()) {
         renderizarHistoricoFiltrado(pesquisarNoHistorico());
     }
-
-    //atualizar o histórico aqui 
-
     let novaLista = dom.renderizarElementoNoHistorico(novoItem);
-    console.log(novaLista)
     dom.listaHistoricoDePesquisa.prepend(novaLista);
 }
 
@@ -238,3 +229,14 @@ async function executarBusca(valor) {
         dom.erro.textContent = "Nao foi possivel renderizar o resultado.";
     }
 }
+
+function ColetarHistoricoDoLocalStorage(){
+        if(localStorage.length > 0 ){
+            for(let i =0; i < localStorage.length ; i++){
+                const chave = localStorage.key(i)
+                const valor = localStorage.getItem(chave)
+                historicoEstado.push(JSON.parse(valor))
+                dom.listaHistoricoDePesquisa.prepend(dom.renderizarElementoNoHistorico(historicoEstado[i]))
+            }
+        }
+    }
