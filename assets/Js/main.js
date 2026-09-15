@@ -1,74 +1,52 @@
-    import dom from "./Dom.js";
-    import functions from "./Funcoes.js";
-    import buscarNoDicionario from "./Fake-API.js";
+    import dom from "./dom.js";
+    import functions from "./funcoes.js";
+    import buscarNoDicionario from "./api.js";
 
-    let SearchID = 0;
+    let idDaBusca = 0;
     const campoDePesquisa = dom.input;
     const historicoEstado = [];
     ColetarHistoricoDoLocalStorage();
     
-    let debounced = functions.debounce(executarBusca,800)
+    const debounced = functions.debounce(executarBusca,800);
 
-campoDePesquisa.addEventListener("input", () => {
-    SearchID++;
+campoDePesquisa.addEventListener("input", () => {//REFAT OK
+    idDaBusca++;
     debounced(campoDePesquisa.value);
 })
 
-dom.formulario.addEventListener("submit",(e)=>{
+dom.formulario.addEventListener("submit",(e)=>{//REFAT OK
     e.preventDefault();
     iniciarBusca(campoDePesquisa.value);
 })
 
-dom.listaHistoricoDePesquisa.addEventListener("click",(e)=>{
-    const termo = e.target.closest("li");
-    if (!termo) { return; }
-    
-
-    const botao = e.target.closest('button');
-        if (botao){
-            functions.DeletaritemDoHistorico(termo,historicoEstado)
-            e.stopPropagation();
-            termo.remove();
-            return;
-        }
-    
-        const palavra = dom.obterTermo(termo);
-        if (!palavra){return;}
-
-    iniciarBusca(palavra);
-})
-
-dom.listaFiltradaHistorico.addEventListener("click", (e) => {
-    const termo = e.target.closest("li");
-    if (!termo) { return; }
-    const botao = e.target.closest('button')
-
+dom.listaHistoricoDePesquisa.addEventListener("click",(e)=>{//REFAT OK
+    const termo = encontrarElementoFilhoMaisProximo(e,"li");
+    const botao = encontrarElementoFilhoMaisProximo(e,"button");
     if (botao) {
-            functions.DeletaritemDoHistorico(termo, historicoEstado)
-            e.stopPropagation();
-            let dataID = termo.getAttribute("data-id");
-                dom.listaHistoricoDePesquisa.querySelector(`li[data-id="${dataID}"]`).remove();
-            termo.remove();
-            return;
-    }
+        deletarItemDoHistorico(e,termo); 
+    return;}
+    buscarTermoDoHistorico(termo)
+})
 
-    if (termo) {
-        const palavra = dom.obterTermo(termo);
-        if (!palavra) { return; }
-
-        iniciarBusca(palavra);
+dom.listaFiltradaHistorico.addEventListener("click", (e) => {// REFAT OK
+    const termo = encontrarElementoFilhoMaisProximo(e,"li");
+    const botao = encontrarElementoFilhoMaisProximo(e,"button");
+    if (botao) {
+        deletarItemDoHistorico(e,termo,deletarItemDoHistoricoFiltrado)
+        return;
     }
+    buscarTermoDoHistorico(termo)
 })
 
 
-dom.botaoLimparHistorico.addEventListener("click",limparHistorico)
+dom.botaoLimparHistorico.addEventListener("click",limparHistorico)//refat ok 
     
 dom.pesquisarNoHistorico.addEventListener("input", (e) => {
-    let inputDoHistorico = e.target.value
-    atualizarPesquisaHistorico(inputDoHistorico)
+    let inputDoHistorico = e.target.value;
+    atualizarPesquisaHistorico(inputDoHistorico);
 });
 
-function atualizarPesquisaHistorico(inputDoHistorico) {
+function atualizarPesquisaHistorico(inputDoHistorico) {//aparentemente refat ok
     if (inputDoHistorico.length > 0) {
         renderizarHistoricoFiltrado(criarRespostaParaEnviarAoDOM(pesquisarNoHistorico()));
     }
@@ -78,46 +56,42 @@ function atualizarPesquisaHistorico(inputDoHistorico) {
 }
 
 function mostrarHistoricoCompleto() {
-    dom.listaHistoricoDePesquisa.style.display = "flex"
+    dom.listaHistoricoDePesquisa.style.display = "flex";
+    dom.listaFiltradaHistorico.style.display = "none";
 
-    dom.listaFiltradaHistorico.style.display = "none"
-    if (historicoEstado.length === 0) {dom.historicoParagrafo.style.display = "block"}
+    if (historicoEstado.length === 0) {dom.historicoParagrafo.style.display = "block"};
 }
 
 function mostrarHistoricoFiltrado() {
-    dom.listaFiltradaHistorico.style.display = "flex"
-    dom.listaFiltradaHistorico.innerHTML = ""
+    dom.listaFiltradaHistorico.style.display = "flex";
+    dom.listaFiltradaHistorico.innerHTML = "";
 
-    dom.listaHistoricoDePesquisa.style.display = "none"
-    dom.historicoParagrafo.style.display = "none"
+    dom.listaHistoricoDePesquisa.style.display = "none";
+    dom.historicoParagrafo.style.display = "none";
 }
 
 
 function pesquisarNoHistorico() {
-    const valor = dom.pesquisarNoHistorico.value
+    const valor = dom.pesquisarNoHistorico.value;
 
     if (historicoEstado.length < 1) {
         return "Não existe nenhuma palavra no historico para ser Pesquisada";}
 
     if(valor?.trim() &&historicoEstado.length>0){
-        return pesquisarNoArray(historicoEstado,"termo",valor)
+        return pesquisarNoArray(historicoEstado,"termo",valor);
     }
 }
 
 function pesquisarNoArray(arrayParaPesquisar,termo, pesquisa){
-        let pesquisaFormatada = pesquisa
-                                .toLowerCase()
-                                .trim();
-        let arrayFiltrado = arrayParaPesquisar.filter(
+        const pesquisaFormatada = pesquisa.toLowerCase().trim();
+        return arrayParaPesquisar.filter(
             array=> {
-                let ObjetoFiltrado = 
-                                array[termo]
-                                        .toLowerCase()
-                                        .trim()
-                                        .includes(pesquisaFormatada)
-                                    return ObjetoFiltrado
-                                })
-    return arrayFiltrado
+                    return array[termo]
+                        .toLowerCase()
+                        .trim()
+                        .includes(pesquisaFormatada);
+                }
+        )
 }
 
 function criarRespostaParaEnviarAoDOM(resultado) {
@@ -152,8 +126,7 @@ function renderizarHistoricoFiltrado(resposta) {
             let novoItem = document.createElement("li");
             novoItem.textContent = resposta;
             dom.listaFiltradaHistorico.appendChild(novoItem);
-        return
- 90   } 
+        return;} 
     else { 
         
         for (let i = 0; i < resposta.length; i++) {
@@ -170,14 +143,14 @@ function limparHistorico() {
 }
 
 function iniciarBusca(valor) {
-    SearchID++;
+    idDaBusca++;
     debounced.cancel();
     executarBusca(valor);
 }
 
 function renderizarRespostaAPI(resposta) {
     dom.termo.textContent = resposta?.palavra;
-    let descricao = resposta?.significado;
+    const descricao = resposta?.significado;
 
     if (!Array.isArray(descricao) || descricao.length === 0) {
         dom.status.textContent = "";
@@ -203,29 +176,31 @@ function renderizarRespostaAPI(resposta) {
 
 async function executarBusca(valor) {
     if (!valor.trim()) { return; }
-    const idDaRequisiçaoAtual = SearchID;
-    dom.statusCarregando(dom);
+    const idDaRequisiçaoAtual = idDaBusca;
+    dom.statusCarregando();
     let resposta = await buscarNoDicionario(valor);
 
-    if (idDaRequisiçaoAtual !== SearchID) {
+    if (idDaRequisiçaoAtual !== idDaBusca) {
         dom.status.textContent = "";
-        return
+        return;
     }
     if (resposta === null) {
         dom.status.textContent = "";
         dom.erro.textContent = "houve um problema ao buscar tente novamente mais tarde.";
-        return
+        return;
     }
     if (resposta === false) {
         dom.status.textContent = "";
         dom.erro.textContent = "Palavra Nao Encontrada no Dicionario";
-        return
+        return;
     }
     campoDePesquisa.value = "";
     try { renderizarRespostaAPI(resposta); }
     catch (e) {
-        console.error(e.message);
+        console.error(e);
+        //esvaziaoStatus
         dom.status.textContent = "";
+        //renderiza o erro no dom
         dom.erro.textContent = "Nao foi possivel renderizar o resultado.";
     }
 }
@@ -233,10 +208,41 @@ async function executarBusca(valor) {
 function ColetarHistoricoDoLocalStorage(){
         if(localStorage.length > 0 ){
             for(let i =0; i < localStorage.length ; i++){
-                const chave = localStorage.key(i)
-                const valor = localStorage.getItem(chave)
-                historicoEstado.push(JSON.parse(valor))
-                dom.listaHistoricoDePesquisa.prepend(dom.renderizarElementoNoHistorico(historicoEstado[i]))
+
+                //pega valor do localStorage
+                const chave = localStorage.key(i);
+                const valor = localStorage.getItem(chave);
+
+                // coloca o valor deu um JSON dentro de um indice do historico 
+                historicoEstado.push(JSON.parse(valor));
+
+                // renderiza o o elemento do historicoEstado dentro dom historico de pesquisa no dom 
+                dom.listaHistoricoDePesquisa.prepend(dom.renderizarElementoNoHistorico(historicoEstado[i]));
             }
         }
     }
+
+        function encontrarElementoFilhoMaisProximo(e ,elementoHTML) {
+        return e.target.closest(elementoHTML) 
+    }
+
+
+    function deletarItemDoHistoricoFiltrado(termo){
+        let dataID = termo.getAttribute("data-id");//pega o atributo data id e depois deleta 
+                dom.listaHistoricoDePesquisa.querySelector(`li[data-id="${dataID}"]`).remove();
+    }
+        function deletarItemDoHistorico(e,termo,funcao){
+                functions.deletaritemDoHistoricoEstado(termo,historicoEstado);
+                e.stopPropagation();
+
+                if(funcao){funcao(termo)}
+
+                termo.remove();
+             
+        };
+        function buscarTermoDoHistorico(termo){
+            if(!termo){return;}
+                const palavra = dom.obterTermo(termo);
+            if (!palavra){return;}
+                iniciarBusca(palavra);
+        }

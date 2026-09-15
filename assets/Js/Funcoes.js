@@ -1,7 +1,7 @@
 const functions = {
-    debounce: debounce,
-    salvarBusca:salvarBusca,
-    DeletaritemDoHistorico:DeletaritemDoHistorico,
+    debounce,
+    salvarBusca,
+    deletaritemDoHistoricoEstado,
 }
 
 export default functions 
@@ -32,9 +32,9 @@ function salvarBusca(input){
     localStorage.setItem(`Historico de Pesquisa Item:${dataId}` , JSON.stringify(historico))
     return historico
 }
-function DeletaritemDoHistorico(input,historico) { 
+function deletaritemDoHistoricoEstado(input,historico) { 
         const idParaRemover = input.getAttribute("data-id");
-        const numeroID = historico.findIndex(item => item.id == idParaRemover);
+        const numeroID = historico.findIndex(item => item.id ===  Number(idParaRemover));
     if(numeroID!==-1){
         historico.splice(numeroID,1);
         localStorage.removeItem(`Historico de Pesquisa Item:${idParaRemover}`)

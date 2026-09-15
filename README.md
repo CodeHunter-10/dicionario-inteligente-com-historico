@@ -71,7 +71,7 @@ Salvar e exibir histórico
 * arrays
 * objetos
 * push
-* map
+* map 
 
 ---
 
@@ -128,9 +128,9 @@ Salvar dados no navegador
 
 ## ✅ Tarefas:
 
-* [ ] Salvar histórico no localStorage
-* [ ] Carregar ao iniciar a página
-* [ ] Atualizar sempre que mudar
+* [x] Salvar histórico no localStorage
+* [x] Carregar ao iniciar a página
+* [x] Atualizar sempre que mudar
 
 ## 🧠 Conceitos usados:
 
@@ -148,9 +148,9 @@ Lidar com falhas
 
 ## ✅ Tarefas:
 
-* [ ] Usar try/catch
-* [ ] Simular erro na busca
-* [ ] Mostrar mensagem de erro na tela
+* [x] Usar try/catch
+- [x] Tratar falhas da API
+* [x] Mostrar mensagem de erro na tela
 
 ## 🧠 Conceitos usados:
 
@@ -168,9 +168,9 @@ Refinar comportamento
 ## ✅ Tarefas:
 
 * [ ] Implementar throttle (ex: botão limpar)
-* [ ] Melhorar UX (mensagens)
-* [ ] Evitar renderizações desnecessárias
-* [ ] Organizar código
+* [x] Melhorar UX (mensagens)
+* [x] Evitar renderizações desnecessárias
+* [x] Organizar código
 
 ---
 
@@ -182,7 +182,7 @@ Refinar comportamento
 * [x] Hoisting
 * [x] Closures
 * [x] Arrays e objetos
-* [x] map / filter / reduce
+* [x] map / filter / reduce*
 * [x] Desestruturação
 * [x] Spread
 * [x] Funções puras vs impuras
@@ -192,6 +192,8 @@ Refinar comportamento
 * [x] try/catch
 * [x] Debounce
 * [x] Throttle
+
+"*Usei map() e filter() onde faziam sentido; não usei reduce() porque não havia uma necessidade real."
 
 ---
 

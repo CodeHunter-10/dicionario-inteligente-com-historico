@@ -1,28 +1,27 @@
 
-function obterITEM(ObjetoDOM) {
-    return document.querySelector(ObjetoDOM)
+function obterElemento(seletor) {
+    return document.querySelector(seletor)
 }
 const dom = {
-    formulario: obterITEM("form"),
-    input: obterITEM("#Buscador_Inteligente"),
-    status: obterITEM("#status"),
-    termo: obterITEM("#termo"),
-    significados: obterITEM("#significados"),
-    erro: obterITEM("#error"),
-    botaoMenu: obterITEM("#menu"),
-    menuHistorico: obterITEM('#historico'),
-    listaHistoricoDePesquisa: obterITEM("#listaHistoricoDOM"),
-    listaFiltradaHistorico: obterITEM("#listaFiltradaHistoricoDOM"),
-    verbete: obterITEM("#Verbete"),
-    historicoParagrafo: obterITEM("#paragradoDoHistorico"),
-    botaoLimparHistorico: obterITEM("#limparHistorico"),
-    pesquisarNoHistorico: obterITEM("#pesquisarNoHistorico"),
+    formulario: obterElemento("form"),
+    input: obterElemento("#Buscador_Inteligente"),
+    status: obterElemento("#status"),
+    termo: obterElemento("#termo"),
+    significados: obterElemento("#significados"),
+    erro: obterElemento("#error"),
+    botaoMenu: obterElemento("#menu"),
+    menuHistorico: obterElemento('#historico'),
+    listaHistoricoDePesquisa: obterElemento("#listaHistoricoDOM"),
+    listaFiltradaHistorico: obterElemento("#listaFiltradaHistoricoDOM"),
+    verbete: obterElemento("#Verbete"),
+    historicoParagrafo: obterElemento("#paragradoDoHistorico"),
+    botaoLimparHistorico: obterElemento("#limparHistorico"),
+    pesquisarNoHistorico: obterElemento("#pesquisarNoHistorico"),
     obterTermo: obterTermo,
     renderizarElementoNoHistorico: renderizarElementoNoHistorico,
     statusCarregando: statusCarregando,
     obterValorDoDOM: obterValorDoDOM,
     limparInterfaceDoHistorico: limparInterfaceDoHistorico,
-    // AlternarListaDeHistoricoExibido:AlternarListaDeHistoricoExibido,
 }
 export default dom
 
@@ -67,7 +66,7 @@ function CriarElemento(elemento, classe, texto, identificador) {
     return novoElemento
 }
 
-function statusCarregando(dom) {
+function statusCarregando() {
     dom.termo.textContent = ""
     dom.significados.innerHTML = "";
     dom.erro.textContent = "";
